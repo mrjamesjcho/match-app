@@ -5,7 +5,7 @@ html, body {
 body {
   display: flex;
   justify-content: center;
-  background-image: url("/assets/images/codingwallpaper.jpg");
+  background-image: url("../images/codingwallpaper.jpg");
 }
 
 .everything_container {
@@ -35,7 +35,7 @@ body {
 }
 
 .learningfuzed{
-  background-image: url("/assets/images/lfz_1.png");
+  background-image: url("../images/lfz_1.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -205,37 +205,37 @@ p:hover{
 }
 
 .picture.css_logo {
-  background-image: url("/assets/images/css.png");
+  background-image: url("../images/css.png");
 }
 
 .picture.docker_logo {
-  background-image: url("/assets/images/docker.png");
+  background-image: url("../images/docker.png");
 }
 
 .picture.gitHub_logo {
-  background-image: url("/assets/images/github.png");
+  background-image: url("../images/github.png");
 }
 
 .picture.html_logo {
-  background-image: url("/assets/images/html.png");
+  background-image: url("../images/html.png");
 }
 
 .picture.js_logo {
-  background-image: url("/assets/images/js.png");
+  background-image: url("../images/js.png");
 }
 
 .picture.mysql_logo {
-  background-image: url("/assets/images/mysql.png");
+  background-image: url("../images/mysql.png");
 }
 
 .picture.node_logo {
-  background-image: url("/assets/images/node.png");
+  background-image: url("../images/node.png");
 }
 
 .picture.php_logo {
-  background-image: url("/assets/images/php.png");
+  background-image: url("../images/php.png");
 }
 
 .picture.react_logo {
-  background-image: url("/assets/images/react.png");
+  background-image: url("../images/react.png");
 }
