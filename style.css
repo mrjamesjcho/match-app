@@ -1,82 +1,35 @@
-html, body {
-  height: 100%;
-}
-
 body {
-  display: flex;
-  justify-content: center;
-  background-image: url("assets/images/codingwallpaper.jpg");
+  margin: 0px;
 }
 
-.everything_container {
+.mainContainer {
+  height: 100vh;
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  width: 75%;
-  height: 100%;
+  align-items: center;
+  background-image: url("assets/images/codingwallpaper.jpg");
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.header_container {
-  display: flex;
-  width: 700px;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  font-size: 3rem;
-  margin-top: 20px;
-}
-
-.image_container{
+.imageContainer{
   display: flex;
   justify-content: flex-end;
-  height:100%;
+  height:50px;
   width: 340px;
-  margin: auto 0 auto 0;
-}
-
-.learningfuzed{
   background-image: url("assets/images/lfz_1.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  height: 100%;
-  width: 100%;
-  margin: 0;
 }
 
-.letter_container{
-  display: flex;
-  height: 50%;
-  width: 3.2%;
-  margin: auto auto auto 2px;
-}
-
-.d_letter {
-  position: relative;
-  bottom: 1px;
-  color: aquamarine;
-  border: 3px solid aquamarine;
-  border-radius: 0 15px 15px 0;
-  height: 100%;
-  width: 100%;
-  margin: auto;
-}
-
-
-.header_container,
-.stats_container *, .mainDiv_container > *,
-.stats_data, .replay_button, .game_over_screen{
-  margin: auto;
-}
-
-.mainDiv_container {
+.gameContainer {
   display: flex;
   justify-content: center;
   width: 800px;
   height: 600px;
 }
 
-.game_over_screen {
+.gameOverScreen {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -87,12 +40,13 @@ body {
   justify-content: center;
   align-items: center;
   top: 0;
+  left: 0;
   color: aquamarine;
   font-size: xx-large;
   z-index: 1;
 }
 
-.replay_button {
+.replayButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,46 +63,42 @@ body {
   font-size: x-large;
 }
 
-.stats_container {
+.statsContainer {
+  height: 594px;
   display: flex;
   flex-direction: column;
-  width: 200px;
-  height: 100%;
-  justify-content: center;
-  margin: 0px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.stats_div {
+.stat{
   background: rgba(255, 255, 255, 0.1);
   display:flex;
   flex-direction: column;
-  width: 80%;
-  height: 13%;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 200px;
+  min-height: 80px;
   border: 3px solid rgb(0, 255, 238);
   border-radius: 8px;
-  text-align: center;
   color: rgb(0, 255, 255);
   box-shadow: 0px 0px 10px 0px rgba(0,255,255,.8);
 }
 
-.card_container {
+.cardContainer {
+  position: relative;
   background: rgba(255, 255, 255, 0.1);
   display: flex;
-  position: relative;
-  width: 680px;
-  height: 600px;
-  justify-content: space-evenly;
-  margin: 0px;
+  padding: 5px;
 }
 
-.card_column {
+.cardCol {
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-start;
-  align-content: center;
-  width: 11%;
-  height: 100%;
-  margin: 0 1.5px 0 1.5px;
+  align-items: center;
+  width: 70px;
+  margin: 0 2px 0 2px;
 }
 
 .card {
@@ -159,7 +109,6 @@ body {
   margin: 1px;
   transition: transform .1s;
   transition: height .2s linear;
-  overflow: hidden;
   border: 3px solid rgb(0, 0, 0, 0);
 }
 
@@ -171,11 +120,16 @@ body {
   background-repeat: no-repeat;
 }
 
-.clickable:hover, .card_selected, .card.card_adjacent:hover, .stats_div.new_game:hover, .stats_div.shuffle:hover, .replay_button:hover{
+.clickable:hover, .card_selected, .card.card_adjacent:hover,
+.newGame:hover, .replayButton:hover{
   transform: scale(1.05);
   background: rgb(0,255,255, 1);
   background: radial-gradient(circle, rgba(0,255,255,.5) 0%, rgba(0,255,255,0.76234243697479) 0%, rgba(0,255,255,0) 100%);
   border: 3px solid aqua;
+}
+
+.newGame:hover, .replayButton:hover {
+  cursor: pointer;
 }
 
 .card_adjacent{
@@ -203,12 +157,6 @@ body {
 p:hover{
   cursor: default;
 }
-
-/* .css_logo, .docker_logo, .gitHub_logo, .html_logo, .js_logo, .mysql_logo, .node_logo, .php_logo, .react_logo {
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-} */
 
 .picture.css_logo {
   background-image: url("assets/images/css.png");
