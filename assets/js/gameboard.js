@@ -13,6 +13,7 @@ class GameBoard {
     this.firstCardColMatches = [];
     this.secondCardRowMatches = [];
     this.secondCardColMatches = [];
+    this.noMatches = false;
     this.clickNumber = 0;
     this.cardsCleared = 0;
     this.points = 0;
@@ -25,6 +26,7 @@ class GameBoard {
     }
     this.handleCardClick = this.handleCardClick.bind(this);
     this.resetGame = this.resetGame.bind(this);
+    this.switchCards = this.switchCards.bind(this);
   }
 
   initializeGameBoard() {
@@ -146,8 +148,6 @@ class GameBoard {
     }
   }
 
-
-
   initializeClickHandlers() {
     this.domElements.cardContainer.addEventListener('click', this.handleCardClick);
     this.domElements.newGameButton.addEventListener('click', this.resetGame);
@@ -209,7 +209,7 @@ class GameBoard {
       }
       this.switchCards();
       this.clickNumber = 0;
-      this.cardMatchCheck();
+      this.callFunctionsAsync();
     }
   }
 
@@ -220,6 +220,7 @@ class GameBoard {
     }
   }
   makeCardsClickable() {
+    console.log('make cards clickable');
     const cardElements = document.querySelectorAll('.card');
     for (let cardElementIndex = 0; cardElementIndex < cardElements.length; cardElementIndex++) {
       cardElements[cardElementIndex].classList.add('clickable');
@@ -227,7 +228,9 @@ class GameBoard {
   }
 
   updateStats() {
+    console.log('update stats');
     this.domElements.cardsCleared.innerHTML = this.cardsCleared;
+    return new Promise(resolve=> resolve());
   }
 
   setCardClicked(element) {
@@ -321,31 +324,43 @@ class GameBoard {
     this.secondCardClicked.class = firstCardClass;
     this.firstCardClicked.picElement = secondCardPicElement;
     this.secondCardClicked.picElement = firstCardPicElement;
+    return new Promise(resolve => resolve());
   }
 
-  cardMatchCheck() {
-    this.findMoreCardsInSameDirection(this.firstCardClicked, this.firstCardRowMatches, 'row');
-    this.findMoreCardsInSameDirection(this.firstCardClicked, this.firstCardColMatches, 'column');
-    this.findMoreCardsInSameDirection(this.secondCardClicked, this.secondCardRowMatches, 'row');
-    this.findMoreCardsInSameDirection(this.secondCardClicked, this.secondCardColMatches, 'column');
-    const ifThreeOrMoreMatchedFirstCard = this.removeIfThreeOrMoreMatchedCards(this.firstCardClicked, this.firstCardColMatches, this.firstCardRowMatches);
+  async callFunctionsAsync() {
+    await this.cardMatchCheck();
+    await this.updateStats();
+    await this.checkForCombos();
+    await this.checkForMoreMoves();
+    await this.makeCardsClickable();
+  }
+
+  async cardMatchCheck() {
+    console.log('card match check');
+    await this.findMoreCardsInSameDirection(this.firstCardClicked, this.firstCardRowMatches, 'row');
+    await this.findMoreCardsInSameDirection(this.firstCardClicked, this.firstCardColMatches, 'column');
+    await this.findMoreCardsInSameDirection(this.secondCardClicked, this.secondCardRowMatches, 'row');
+    await this.findMoreCardsInSameDirection(this.secondCardClicked, this.secondCardColMatches, 'column');
+    const ifThreeOrMoreMatchedFirstCard = await this.removeIfThreeOrMoreMatchedCards(this.firstCardClicked, this.firstCardColMatches, this.firstCardRowMatches);
     if (!ifThreeOrMoreMatchedFirstCard) {
       this.firstCardClicked.divElement.classList.remove('card_selected');
     }
-    const ifThreeOrMoreMatchedSecondCard = this.removeIfThreeOrMoreMatchedCards(this.secondCardClicked, this.secondCardColMatches, this.secondCardRowMatches);
+    const ifThreeOrMoreMatchedSecondCard = await this.removeIfThreeOrMoreMatchedCards(this.secondCardClicked, this.secondCardColMatches, this.secondCardRowMatches);
     if (!ifThreeOrMoreMatchedSecondCard) {
       this.secondCardClicked.divElement.classList.remove('card_selected');
     }
     if (!ifThreeOrMoreMatchedFirstCard && !ifThreeOrMoreMatchedSecondCard) {
-      setTimeout(this.switchCards.bind(this), 200);
+      this.noMatches = true;
+      await new Promise(resolve => {
+        setTimeout(this.switchCards, 200);
+        setTimeout(resolve, 200);
+      });
     }
     this.firstCardColMatches = [];
     this.firstCardRowMatches = [];
     this.secondCardColMatches = [];
     this.secondCardRowMatches = [];
-    const functionArr = [this.updateStats.bind(this), this.checkForCombos.bind(this), this.checkForMoreMoves.bind(this)];
-    this.callFunctionsInOrder(functionArr, 500);
-    setTimeout(this.makeCardsClickable, 1100);
+    return new Promise(resolve => resolve());
   }
 
   findMoreCardsInSameDirection(card, matchedArr, rowOrCol) {
@@ -371,6 +386,7 @@ class GameBoard {
         }
       }
     }
+    return new Promise(resolve => resolve());
   }
 
   pushIntoColumnArray(card, arr) {
@@ -416,10 +432,11 @@ class GameBoard {
     return cardsInSameCol;
   }
 
-  removeIfThreeOrMoreMatchedCards(card, colMatches, rowMatches) {
+  async removeIfThreeOrMoreMatchedCards(card, colMatches, rowMatches) {
     var cardsToRemove = [];
     if (rowMatches.length < 2 && colMatches.length < 2) {
-      return false;
+      console.log('remove if three or more matched cards false');
+      return new Promise(resolve => resolve(false));
     }
     if (colMatches.length >= 2) {
       this.pushIntoColumnArray(card, colMatches);
@@ -437,27 +454,33 @@ class GameBoard {
     }
     this.cardsCleared += cardsToRemove.length;
     this.points = this.cardsCleared + colMatches.length * 10 + rowMatches.length * 10;
-    this.collapseCards(cardsToRemove);
-    setTimeout(this.removeCards.bind(this), 200, cardsToRemove);
-    setTimeout(this.repopulateColumns.bind(this), 200);
-    return true;
+    await this.collapseCards(cardsToRemove);
+    await this.removeCards(cardsToRemove);
+    await this.repopulateColumns();
+    console.log('remove if three or more matched cards true');
+    return new Promise(resolve => resolve(true));
   }
 
   collapseCards(cardArr) {
+    console.log('collapse cards');
     for (let cardIndex = 0; cardIndex < cardArr.length; cardIndex++) {
       cardArr[cardIndex].divElement.classList.add('collapse');
     }
+    return new Promise(resolve => setTimeout(resolve, 300));
   }
 
   removeCards(cardArr) {
+    console.log('remove cards');
     for (let cardIndex = 0; cardIndex < cardArr.length; cardIndex++) {
       const cardElementToRemove = cardArr[cardIndex].divElement
       cardElementToRemove.parentNode.removeChild(cardElementToRemove);
       this.gameBoard[cardArr[cardIndex].col].splice(cardArr[cardIndex].row, 1);
     }
+    return new Promise(resolve => resolve());
   }
 
   repopulateColumns() {
+    console.log('repopulate columns');
     for (let colIndex = 0; colIndex < this.numOfCols; colIndex++) {
       if (this.gameBoard[colIndex].length < 8) {
         for (let rowIndex = this.gameBoard[colIndex].length; rowIndex < 8; rowIndex++) {
@@ -467,6 +490,7 @@ class GameBoard {
       }
     }
     this.reinitializeCardRows();
+    return new Promise(resolve => resolve());
   }
 
   reinitializeCardRows() {
@@ -478,27 +502,35 @@ class GameBoard {
     }
   }
 
-  checkForCombos() {
-    var comboRows = [];
-    var comboCols = [];
+  async checkForCombos() {
+    console.log('check for combos');
+    if (this.noMatches){
+      this.noMatches = false;
+      return new Promise(resolve => resolve());
+    }
     for (let col = 0; col < this.numOfRows; col++) {
       for (let row = 0; row < this.numOfCols; row++) {
+        var comboRows = [];
+        var comboCols = [];
         const comboCard = this.gameBoard[col][row];
         comboCard.divElement.classList.add('card_selected');
-        this.findMoreCardsInSameDirection(comboCard, comboCols, 'col');
-        this.findMoreCardsInSameDirection(comboCard, comboRows, 'row');
-        if (this.removeIfThreeOrMoreMatchedCards(comboCard, comboCols, comboRows)) {
-          setTimeout(this.checkForCombos.bind(this), 400);
+        await this.findMoreCardsInSameDirection(comboCard, comboCols, 'col');
+        await this.findMoreCardsInSameDirection(comboCard, comboRows, 'row');
+        const threeOrMoreMatchedCards = await this.removeIfThreeOrMoreMatchedCards(comboCard, comboCols, comboRows);
+        if (threeOrMoreMatchedCards === true) {
+          await this.checkForCombos();
+          return new Promise(resolve => resolve());
         }
         comboCard.divElement.classList.remove('card_selected');
-        comboRows = [];
-        comboCols = [];
       }
     }
     this.updateStats();
+    this.noMatches = false;
+    return new Promise(resolve => resolve());
   }
 
   checkForMoreMoves() {
+    console.log('check for more moves');
     for (let col = 0; col < this.numOfRows; col++) {
       for (let row = 0; row < this.numOfCols; row++) {
         this.firstCardClicked = this.gameBoard[col][row];
@@ -519,7 +551,7 @@ class GameBoard {
               this.firstCardClicked.divElement.classList.remove('card_selected');
               this.secondCardClicked.divElement.classList.remove('card_selected');
               this.reinitializeClickedCards();
-              return true;
+              return new Promise (resolve => resolve(true));
             }
             this.switchCards();
             this.secondCardClicked.divElement.classList.remove('card_selected');
@@ -533,6 +565,7 @@ class GameBoard {
       }
     }
     this.gameOver();
+    return new Promise (resolve => resolve(false));
   }
 
   gameOver() {
@@ -544,12 +577,6 @@ class GameBoard {
     this.resetGameBoard();
     this.renderCardElements();
     this.updateStats();
-  }
-
-  callFunctionsInOrder(funcArr, time) {
-    for (let funcIndex = 0; funcIndex < funcArr.length; funcIndex++) {
-      setTimeout(funcArr[funcIndex], time);
-    }
   }
 
 }
