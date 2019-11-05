@@ -7,7 +7,8 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  background-image: url("assets/images/codingwallpaper.jpg");
+  background-image: url("assets/images/starwarsbackground.jpg");
+  background-position: center;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -52,14 +53,14 @@ body {
   align-items: center;
   height: 12%;
   width: 35%;
+  margin-top: 10%;
   font-size: 1.2rem;
-  color: aquamarine;
-  border: 3px solid rgb(0, 255, 238);
+  color: rgb(0, 255, 166);
+  border: 3px solid rgb(0, 255, 166);
   border-radius: 8px;
   text-align: center;
-  color: aquamarine;
-  box-shadow: 0px 0px 10px 0px rgba(0,255,255,.8);
-  margin: 0;
+  color: rgb(0, 255, 166);
+  box-shadow: 0px 0px 10px 0px rgba(0,255,166,.8);
   font-size: x-large;
 }
 
@@ -79,10 +80,10 @@ body {
   align-items: center;
   width: 200px;
   min-height: 80px;
-  border: 3px solid rgb(0, 255, 238);
+  border: 3px solid rgb(0, 255, 166);
   border-radius: 8px;
   color: rgb(0, 255, 255);
-  box-shadow: 0px 0px 10px 0px rgba(0,255,255,.8);
+  box-shadow: 0px 0px 10px 0px rgba(0,255,166,.8);
 }
 
 .cardContainer {
@@ -108,7 +109,7 @@ body {
   height: 65px;
   margin: 1px;
   transition: transform .1s;
-  transition: height .2s linear;
+  transition: height .3s linear;
   border: 3px solid rgb(0, 0, 0, 0);
 }
 
@@ -123,9 +124,9 @@ body {
 .clickable:hover, .card_selected, .card.card_adjacent:hover,
 .newGame:hover, .replayButton:hover{
   transform: scale(1.05);
-  background: rgb(0,255,255, 1);
-  background: radial-gradient(circle, rgba(0,255,255,.5) 0%, rgba(0,255,255,0.76234243697479) 0%, rgba(0,255,255,0) 100%);
-  border: 3px solid aqua;
+  background: rgb(0, 255, 166);
+  background: radial-gradient(circle, rgba(0,255,166,.5) 0%, rgba(0,255,166,0.76234243697479) 0%, rgba(0,255,166,0) 100%);
+  border: 3px solid rgb(0, 255, 166);
 }
 
 .newGame:hover, .replayButton:hover {
@@ -134,8 +135,8 @@ body {
 
 .card_adjacent{
   transform: scale(1.00);
-  background: radial-gradient(circle, rgba(0,255,255,.5) 0%, rgba(0,255,255,0.76234243697479) 0%, rgba(0,255,255,0) 100%);
-  border: 3px dashed aqua;
+  background: radial-gradient(circle, rgba(0,255,166,.5) 0%, rgba(0,255,166,0.76234243697479) 0%, rgba(0,255,166,0) 100%);
+  border: 3px dashed rgb(0, 255, 166);
 }
 
 .card_selected {
@@ -144,8 +145,8 @@ body {
 
 
 .card.card_matched{
-  background: radial-gradient(circle, rgba(255,0,255,.5) 0%, rgba(255,0,255,0.76234243697479) 0%, rgba(255,0,255,0) 100%);
-  border: 3px solid rgba(255, 0, 255, 1);
+  background: radial-gradient(circle, rgba(255,0,100,.5) 0%, rgba(255,0,100,0.76234243697479) 0%, rgba(255,0,100,0) 100%);
+  border: 3px solid rgb(255, 0, 100);
 }
 
 .card.collapse{
@@ -159,37 +160,37 @@ p:hover{
 }
 
 .picture.css_logo {
-  background-image: url("assets/images/css.png");
+  background-image: url("assets/images/darthvader.png");
 }
 
 .picture.docker_logo {
-  background-image: url("assets/images/docker.png");
+  background-image: url("assets/images/darthmaul.png");
 }
 
 .picture.gitHub_logo {
-  background-image: url("assets/images/gitHub.png");
+  background-image: url("assets/images/redfive.png");
 }
 
 .picture.html_logo {
-  background-image: url("assets/images/html.png");
+  background-image: url("assets/images/c3p0.png");
 }
 
 .picture.js_logo {
-  background-image: url("assets/images/js.png");
+  background-image: url("assets/images/chewbacca.png");
 }
 
 .picture.mysql_logo {
-  background-image: url("assets/images/mysql.png");
+  background-image: url("assets/images/yoda.png");
 }
 
 .picture.node_logo {
-  background-image: url("assets/images/node.png");
+  background-image: url("assets/images/stormtrooper.png");
 }
 
 .picture.php_logo {
-  background-image: url("assets/images/php.png");
+  background-image: url("assets/images/bobafett.png");
 }
 
 .picture.react_logo {
-  background-image: url("assets/images/react.png");
+  background-image: url("assets/images/r2d2.png");
 }
