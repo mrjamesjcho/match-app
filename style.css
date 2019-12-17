@@ -1,0 +1,196 @@
+body {
+  margin: 0px;
+}
+
+.mainContainer {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-image: url("assets/images/starwarsbackground.jpg");
+  background-position: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.imageContainer{
+  display: flex;
+  justify-content: flex-end;
+  height:50px;
+  width: 340px;
+  background-image: url("assets/images/lfz_1.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.gameContainer {
+  display: flex;
+  justify-content: center;
+  width: 800px;
+  height: 600px;
+}
+
+.gameOverScreen {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  color: aquamarine;
+  font-size: xx-large;
+  z-index: 1;
+}
+
+.replayButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 12%;
+  width: 35%;
+  margin-top: 10%;
+  font-size: 1.2rem;
+  color: rgb(0, 255, 166);
+  border: 3px solid rgb(0, 255, 166);
+  border-radius: 8px;
+  text-align: center;
+  color: rgb(0, 255, 166);
+  box-shadow: 0px 0px 10px 0px rgba(0,255,166,.8);
+  font-size: x-large;
+}
+
+.statsContainer {
+  height: 594px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat{
+  background: rgba(255, 255, 255, 0.1);
+  display:flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 200px;
+  min-height: 80px;
+  border: 3px solid rgb(0, 255, 166);
+  border-radius: 8px;
+  color: rgb(0, 255, 255);
+  box-shadow: 0px 0px 10px 0px rgba(0,255,166,.8);
+}
+
+.cardContainer {
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  padding: 5px;
+}
+
+.cardCol {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  align-items: center;
+  width: 70px;
+  margin: 0 2px 0 2px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 65px;
+  margin: 1px;
+  transition: transform .1s;
+  transition: height .3s linear;
+  border: 3px solid rgb(0, 0, 0, 0);
+}
+
+.picture {
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.clickable:hover, .card_selected, .card.card_adjacent:hover,
+.newGame:hover, .replayButton:hover{
+  transform: scale(1.05);
+  background: rgb(0, 255, 166);
+  background: radial-gradient(circle, rgba(0,255,166,.5) 0%, rgba(0,255,166,0.76234243697479) 0%, rgba(0,255,166,0) 100%);
+  border: 3px solid rgb(0, 255, 166);
+}
+
+.newGame:hover, .replayButton:hover {
+  cursor: pointer;
+}
+
+.card_adjacent{
+  transform: scale(1.00);
+  background: radial-gradient(circle, rgba(0,255,166,.5) 0%, rgba(0,255,166,0.76234243697479) 0%, rgba(0,255,166,0) 100%);
+  border: 3px dashed rgb(0, 255, 166);
+}
+
+.card_selected {
+  z-index: 1;
+}
+
+
+.card.card_matched{
+  background: radial-gradient(circle, rgba(255,0,100,.5) 0%, rgba(255,0,100,0.76234243697479) 0%, rgba(255,0,100,0) 100%);
+  border: 3px solid rgb(255, 0, 100);
+}
+
+.card.collapse{
+  height: 0;
+  overflow: hidden;
+  margin:0;
+}
+
+p:hover{
+  cursor: default;
+}
+
+.picture.css_logo {
+  background-image: url("assets/images/darthvader.png");
+}
+
+.picture.docker_logo {
+  background-image: url("assets/images/darthmaul.png");
+}
+
+.picture.gitHub_logo {
+  background-image: url("assets/images/redfive.png");
+}
+
+.picture.html_logo {
+  background-image: url("assets/images/c3p0.png");
+}
+
+.picture.js_logo {
+  background-image: url("assets/images/chewbacca.png");
+}
+
+.picture.mysql_logo {
+  background-image: url("assets/images/yoda.png");
+}
+
+.picture.node_logo {
+  background-image: url("assets/images/stormtrooper.png");
+}
+
+.picture.php_logo {
+  background-image: url("assets/images/bobafett.png");
+}
+
+.picture.react_logo {
+  background-image: url("assets/images/r2d2.png");
+}
