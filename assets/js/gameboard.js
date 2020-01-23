@@ -16,12 +16,13 @@ class GameBoard {
     this.noMatches = false;
     this.clickNumber = 0;
     this.cardsCleared = 0;
-    this.points = 0;
+    this.cardsClearedToWin = 100;
     this.domElements = {
       cardContainer: null,
       cardCols: [],
       cardsCleared: null,
       gameOverScreen: null,
+
       newGameButton: null
     }
     this.handleCardClick = this.handleCardClick.bind(this);
@@ -45,7 +46,7 @@ class GameBoard {
     this.domElements.cardContainer = cardContainer;
     this.renderCardCols();
     this.renderCardElements();
-    this.renderGameOverScreen();
+    //this.renderGameOverScreen();
     root.append(mainContainer);
   }
 
@@ -117,12 +118,15 @@ class GameBoard {
   renderGameOverScreen() {
     const gameOverScreen = document.createElement('div');
     gameOverScreen.className = 'gameOverScreen';
-    gameOverScreen.style.display = 'none';
     const gameOverButton = document.createElement('div');
     gameOverButton.className = 'replayButton';
     gameOverButton.innerText = 'PLAY AGAIN';
     gameOverButton.onclick = this.resetGame;
-    gameOverScreen.append('NO MORE MOVES', gameOverButton);
+    if (this.cardsCleared >= this.cardsClearedToWin) {
+      gameOverScreen.append('YOU WIN!', gameOverButton);
+    } else {
+      gameOverScreen.append('NO MORE MOVES', gameOverButton);
+    }
     this.domElements.cardContainer.append(gameOverScreen);
     this.domElements.gameOverScreen = gameOverScreen;
   }
@@ -139,7 +143,6 @@ class GameBoard {
     this.secondCardColMatches = [];
     this.clickNumber = 0;
     this.cardsCleared = 0;
-    this.points = 0;
     for (let columnIndex = 0; columnIndex < this.numOfCols; columnIndex++) {
       const col = this.domElements.cardCols[columnIndex];
       while(col.firstChild){
@@ -453,7 +456,6 @@ class GameBoard {
       cardsToRemove[cardNum].divElement.classList.add('card_matched');
     }
     this.cardsCleared += cardsToRemove.length;
-    this.points = this.cardsCleared + colMatches.length * 10 + rowMatches.length * 10;
     await this.collapseCards(cardsToRemove);
     await this.removeCards(cardsToRemove);
     await this.repopulateColumns();
@@ -551,6 +553,9 @@ class GameBoard {
               this.firstCardClicked.divElement.classList.remove('card_selected');
               this.secondCardClicked.divElement.classList.remove('card_selected');
               this.reinitializeClickedCards();
+              if (this.cardsCleared >= this.cardsClearedToWin) {
+                this.renderGameOverScreen();
+              }
               return new Promise (resolve => resolve(true));
             }
             this.switchCards();
@@ -564,12 +569,8 @@ class GameBoard {
         this.firstCardClicked.divElement.classList.remove('card_selected');
       }
     }
-    this.gameOver();
+    this.renderGameOverScreen();
     return new Promise (resolve => resolve(false));
-  }
-
-  gameOver() {
-    this.domElements.gameOverScreen.style.display = 'inherit';
   }
 
   resetGame() {
