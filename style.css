@@ -16,9 +16,9 @@ body {
 .imageContainer{
   display: flex;
   justify-content: flex-end;
-  height:50px;
+  height:100px;
   width: 340px;
-  background-image: url("assets/images/lfz_1.png");
+  background-image: url("assets/images/star-wars-match-logo.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

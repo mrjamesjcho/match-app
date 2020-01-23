@@ -118,7 +118,6 @@ class GameBoard {
   renderGameOverScreen() {
     const gameOverScreen = document.createElement('div');
     gameOverScreen.className = 'gameOverScreen';
-    //gameOverScreen.style.display = 'none';
     const gameOverButton = document.createElement('div');
     gameOverButton.className = 'replayButton';
     gameOverButton.innerText = 'PLAY AGAIN';
@@ -572,10 +571,6 @@ class GameBoard {
     }
     this.renderGameOverScreen();
     return new Promise (resolve => resolve(false));
-  }
-
-  gameOver() {
-    this.domElements.gameOverScreen.style.display = 'inherit';
   }
 
   resetGame() {
